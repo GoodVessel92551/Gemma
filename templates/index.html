@@ -6,31 +6,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/prismjs/prism.css" />
+    <script src="/static/prismjs/prism.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
+    <div id="logo" class="logo">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_39_6)">
+                <path
+                    d="M7.59448 0.0274196C7.18785 0.124657 6.82189 0.379244 6.57791 0.732835C6.49305 0.856592 6.38697 1.08996 6.34631 1.24554C6.30034 1.42234 6.28266 1.76002 6.31095 1.94389C6.341 2.13483 6.43647 2.39825 6.53548 2.56621C6.7052 2.85262 7.05172 3.1461 7.35404 3.25925C7.57327 3.34234 7.67581 3.36002 8.11073 3.38477C8.34763 3.39891 8.6252 3.42367 8.72951 3.43958C9.29526 3.52267 9.93172 3.76488 10.448 4.09195C11.88 4.99891 12.6915 6.58831 12.589 8.28731C12.5501 8.92731 12.3963 9.49129 12.1028 10.0765C11.7492 10.7766 11.1534 11.4343 10.4763 11.871C9.74432 12.343 8.89393 12.5887 7.99227 12.5905C7.33106 12.5905 6.7936 12.4844 6.21194 12.2405C5.27846 11.8497 4.49526 11.1549 3.98255 10.2586C3.62365 9.62919 3.43448 8.95737 3.39559 8.16709C3.37437 7.74632 3.3673 7.68444 3.31426 7.49881C3.23117 7.21593 3.08443 6.97372 2.86343 6.7598C2.70432 6.60776 2.60531 6.5388 2.41791 6.45217C2.16332 6.33195 2.01482 6.30367 1.68067 6.30367C1.43669 6.30367 1.36597 6.31074 1.24752 6.34256C1.09017 6.38676 0.855031 6.49284 0.733042 6.5777C0.379451 6.81991 0.12133 7.19472 0.0293961 7.59604C-0.00949891 7.76753 -0.00949892 8.47118 0.0276282 8.83184C0.161993 10.0995 0.625197 11.3936 1.31824 12.4332C1.62056 12.8893 1.91051 13.2411 2.32598 13.6566C3.23294 14.5671 4.30785 15.223 5.55957 15.6279C6.02277 15.7764 6.59382 15.8948 7.16133 15.9585C7.54321 16.0009 8.44133 16.0009 8.81968 15.9585C10.0661 15.8188 11.3054 15.3892 12.2972 14.7563C14.0404 13.6407 15.2798 11.9116 15.7713 9.9103C15.9322 9.25262 15.9905 8.74521 15.9905 7.9903C15.9905 7.39273 15.9693 7.13107 15.8862 6.63251C15.7165 5.63008 15.2904 4.51803 14.7582 3.68532C13.4358 1.61858 11.2683 0.280238 8.83736 0.0256522C8.49437 -0.00970698 7.74476 -0.00793946 7.59448 0.0274196Z"
+                    fill="url(#paint0_linear_39_6)" />
+            </g>
+            <defs>
+                <linearGradient id="paint0_linear_39_6" x1="3.53279" y1="15.9903" x2="16.331" y2="14.0229"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#425FC4" />
+                    <stop offset="0.52" stop-color="#397BE1" />
+                    <stop offset="1" stop-color="#3096FC" />
+                </linearGradient>
+                <clipPath id="clip0_39_6">
+                    <rect width="16" height="16" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+        <span>Booogle Chat</span>
+    </div>
+    <div class="welcome" id="welcome">
+        <span class="title">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_27_23)">
+                    <path
+                        d="M26.5807 0.0959687C25.1575 0.4363 23.8766 1.32735 23.0227 2.56492C22.7257 2.99807 22.3544 3.81487 22.2121 4.3594C22.0512 4.97818 21.9893 6.16006 22.0883 6.8036C22.1935 7.47189 22.5277 8.39388 22.8742 8.98172C23.4682 9.98416 24.681 11.0113 25.7391 11.4074C26.5064 11.6982 26.8653 11.7601 28.3875 11.8467C29.2167 11.8962 30.1882 11.9828 30.5533 12.0385C32.5334 12.3293 34.761 13.1771 36.5679 14.3218C41.58 17.4962 44.4202 23.0591 44.0614 29.0056C43.9252 31.2456 43.3869 33.2195 42.3597 35.2677C41.1221 37.7181 39.0368 40.02 36.6669 41.5484C34.1051 43.2005 31.1288 44.0606 27.973 44.0668C25.6587 44.0668 23.7776 43.6955 21.7418 42.8416C18.4746 41.4741 15.7334 39.0423 13.9389 35.905C12.6828 33.7022 12.0207 31.3508 11.8846 28.5848C11.8103 27.1121 11.7856 26.8955 11.5999 26.2458C11.3091 25.2558 10.7955 24.408 10.022 23.6593C9.46511 23.1271 9.11859 22.8858 8.46268 22.5826C7.57163 22.1618 7.05185 22.0628 5.88233 22.0628C5.02841 22.0628 4.7809 22.0876 4.36631 22.199C3.81559 22.3537 2.99261 22.7249 2.56565 23.0219C1.32808 23.8697 0.424654 25.1815 0.102887 26.5861C-0.0332462 27.1864 -0.0332462 29.6491 0.0966987 30.9115C0.566975 35.3481 2.18819 39.8776 4.61382 43.5161C5.67195 45.1126 6.68677 46.3439 8.14091 47.7981C11.3153 50.9848 15.0775 53.2805 19.4585 54.6975C21.0797 55.2173 23.0784 55.6319 25.0647 55.8547C26.4012 56.0032 29.5447 56.0032 30.8689 55.8547C35.2313 55.3658 39.569 53.8622 43.0404 51.6469C49.1416 47.7424 53.4793 41.6907 55.1995 34.686C55.7626 32.3842 55.9668 30.6082 55.9668 27.966C55.9668 25.8745 55.8925 24.9587 55.6017 23.2138C55.0077 19.7053 53.5164 15.8131 51.6538 12.8986C47.0253 5.66503 39.439 0.980834 30.9307 0.0897827C29.7303 -0.0339744 27.1067 -0.0277881 26.5807 0.0959687Z"
+                        fill="url(#paint0_linear_27_23)" />
+                </g>
+                <defs>
+                    <linearGradient id="paint0_linear_27_23" x1="12.3648" y1="55.966" x2="57.1583" y2="49.0801"
+                        gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#425FC4" />
+                        <stop offset="0.52" stop-color="#397BE1" />
+                        <stop offset="1" stop-color="#3096FC" />
+                    </linearGradient>
+                    <clipPath id="clip0_27_23">
+                        <rect width="56" height="56" fill="white" />
+                    </clipPath>
+                </defs>
+            </svg>
+            <h1>Booogle Chat</h1>
+        </span>
+        <span class="sub_title">
+            Your local AI model
+        </span>
+        <span class="power">
+            Powered by <span class="fancy_text google_text">Gemma</span>
+        </span>
+    </div>
     <div class="container">
         <div class="message-container" id="message-container">
+        </div>
+        <div class="examples" id="examples">
+            <button onclick="sendMessage(this.innerText)">What is the capital of France?</button>
+            <button onclick="sendMessage(this.innerText)">Give me a random fact.</button>
+            <button onclick="sendMessage(this.innerText)">How to center a DIV?</button>
         </div>
         <div class="lower_buttons">
             <button id="clear_button"><i class="ph ph-broom"></i>Clear</button>
             <input type="text" id="user-input" placeholder="Type your message...">
-            <button onclick="sendMessage()" class="send_button"><i class="ph ph-sparkle"></i>Send</button>
+            <button onclick="sendMessage(document.getElementById('user-input').value)" class="send_button"><i
+                    class="ph ph-sparkle"></i>Send</button>
         </div>
     </div>
 
     <script>
-        // temp
+        const welcome = document.getElementById("welcome")
+        const examples = document.getElementById("examples")
+        const logo = document.getElementById("logo")
         const clear = () => {
             console.log("clear")
             window.location.reload()
+        }
+        const removeDuplicate = (originalText, newText) => {
+            const index = newText.indexOf(originalText);
+            if (index !== -1) {
+                return newText.substring(index + originalText.length);
+            }
+            return newText;
+        };
+
+        const start_chat = () => {
+            welcome.style.display = "none"
+            examples.style.display = "none"
+            logo.style.display = "flex"
         }
         var clear_button = document.getElementById("clear_button")
         clear_button.addEventListener("click", clear)
@@ -38,14 +114,15 @@
         input.addEventListener("keyup", function (event) {
             if (event.keyCode === 13) {
                 event.preventDefault();
-                sendMessage()
+                sendMessage(document.getElementById('user-input').value)
             }
         });
-        function sendMessage() {
-            var userInput = document.getElementById("user-input").value;
+        function sendMessage(prompt) {
+            start_chat()
+            var userInput = prompt
             appendMessage(userInput, 'user');
             document.getElementById("user-input").value = "";
-
+            document.getElementById('user-input').disabled = true;
             get_answer()
             fetch('/ask', {
                 method: 'POST',
@@ -55,6 +132,7 @@
                 body: JSON.stringify({ 'user_input': userInput })
             })
         }
+
         const get_answer = () => {
             var messageDiv = document.createElement("div");
             var title = document.createElement("div");
@@ -70,25 +148,29 @@
             title.appendChild(type);
             messageDiv.appendChild(title);
             messageDiv.appendChild(p);
-            var live_ans = setInterval(() => {
+            var interval = setInterval(() => {
                 fetch("/get_current_answer")
                     .then(response => response.json())
                     .then(data => {
-                        p.innerHTML = marked.parse(data.current_answer);
-                        if (data.current != ""){
-                            messageContainer.appendChild(messageDiv);
-                        }
-                        //document.querySelectorAll('#instructions_element code').forEach(function (codeElement) {
-                        //    codeElement.classList.add('language-python');
-                        //});
-                        //document.querySelectorAll('#instructions_element pre').forEach(function (codeElement) {
-                        //    codeElement.classList.add('language-python');
-                        //});
-                        if (data.end) {
-                            clearInterval(live_ans)
-                        }
-                    });
-            }, 800);
+                        const answerText = data.current_answer;
+                        p.innerHTML = marked.parse(answerText);
+                                if (data.current != "") {
+                                    messageContainer.appendChild(messageDiv);
+                                }
+                                document.querySelectorAll('#message-container code').forEach(function (codeElement) {
+                                    codeElement.classList.add('prism');
+                                });
+                                document.querySelectorAll('#message-container pre').forEach(function (codeElement) {
+                                    codeElement.classList.add('prism');
+                                });
+                                if (data.end) {
+                                    clearInterval(interval)
+                                    document.getElementById('user-input').disabled = false;
+                                    document.getElementById('user-input').focus()
+                                }
+                            })
+                    
+            }, 500);
         }
 
         function appendMessage(message, role) {
@@ -110,7 +192,6 @@
             messageContainer.scrollTop = messageContainer.scrollHeight;
         }
     </script>
-    <script src="/static/prismjs/prism.js"></script>
 </body>
 
 </html>
