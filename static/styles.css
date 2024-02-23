@@ -1,0 +1,137 @@
+
+
+html,body{
+    background:#1B1E1A;
+    display: flex;
+    justify-content: center;
+    font-family: Product Sans;
+    font-family: "Manrope", sans-serif;
+}
+
+.container{
+    width:90vw;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height:calc(100vh - 32px);
+    padding-top: 64px;
+    box-sizing: border-box;
+}
+
+h1{
+    font-size:32px;
+    color:#f0f0f0;
+    font-weight: normal;
+    position: absolute;
+    top:32px;
+    left:32px;
+}
+
+h1 > span{
+    background-image: linear-gradient(45deg, #425FC4, #397BE1,#3096FC);
+    -webkit-background-clip: text; /* Clip the text to the background */
+    background-clip: text;
+    color: transparent; 
+    font-weight: bold;
+}
+
+.message-container{
+    width:100%;
+    height:auto;
+    display: flex;
+    flex-direction: column;
+    gap:32px;
+}
+
+.lower_buttons{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    gap:16px;
+}
+
+.lower_buttons > button{
+    width:auto;
+    padding:8px 24px;
+    height:40px;
+    border-radius: 20px;
+    border:none;
+    background:#32363C;
+    color:#f0f0f0;
+    display: flex;
+    gap:8px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    transition: .3s filter;
+    font-size:16px;
+}
+
+.lower_buttons > button:hover{
+    filter: brightness(1.2);
+}
+
+.send_button{
+    background:linear-gradient(45deg, #425FC4, #397BE1,#3096FC) !important;
+}
+
+.lower_buttons > input{
+    width:100%;
+    border-radius: 20px;
+    border:none;
+    background:#32363C;
+    color:#f0f0f0;
+    padding:8px 15px;
+    height:40px;
+    box-sizing: border-box;
+}
+
+.lower_buttons > input:focus{
+    outline:1px solid #397BE1;
+}
+
+.message{
+
+    color:#f0f0f0;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.message > div{
+    display: flex;
+    gap:16px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.message > div > span{
+    background-color: #2A3642;
+    width:24px;
+    height:24px;
+    font-size: 14px;
+    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    color:#55B8F0;
+    background-color: #2a3042;
+}
+
+.modal{
+    color: #f0b255 !important;
+    background-color: #42412A !important;
+}
+
+
+.message > div > type{
+    font-weight: 600;
+}
+
+.message  > p{
+    margin:0;
+    margin-left:40px;
+    line-height: 1.5;
+}

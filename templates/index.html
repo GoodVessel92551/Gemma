@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700&display=swap" rel="stylesheet">
+    
+</head>
+
+<body>
+    <h1>Booogle <span>AI</span></h1>
+    <div class="container">
+        <div class="message-container" id="message-container">
+        </div>
+        <div class="lower_buttons">
+            <button id="clear_button"><i class="ph ph-broom"></i>Clear</button>
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()" class="send_button"><i class="ph ph-sparkle"></i>Send</button>
+        </div>
+    </div>
+
+    <script>
+        // temp
+        const clear = () => {
+            console.log("clear")
+            window.location.reload()
+        }
+        var clear_button = document.getElementById("clear_button")
+        clear_button.addEventListener("click", clear)
+        var input = document.getElementById("user-input")
+        input.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                sendMessage()
+            }
+        });
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value;
+            appendMessage(userInput, 'user');
+            document.getElementById("user-input").value = "";
+
+            get_answer()
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 'user_input': userInput })
+            })
+        }
+        const get_answer = () => {
+            var messageDiv = document.createElement("div");
+            var title = document.createElement("div");
+            var icon = document.createElement("span");
+            var type = document.createElement("type");
+            var p = document.createElement("p");
+            icon.classList.add("modal")
+            icon.innerHTML = '<i class="ph-fill ph-sparkle"></i>';
+            type.innerHTML = "Booogle";
+            messageDiv.classList.add("message");
+            var messageContainer = document.getElementById("message-container");
+            title.appendChild(icon);
+            title.appendChild(type);
+            messageDiv.appendChild(title);
+            messageDiv.appendChild(p);
+            var live_ans = setInterval(() => {
+                fetch("/get_current_answer")
+                    .then(response => response.json())
+                    .then(data => {
+                        p.innerHTML = marked.parse(data.current_answer);
+                        if (data.current != ""){
+                            messageContainer.appendChild(messageDiv);
+                        }
+                        //document.querySelectorAll('#instructions_element code').forEach(function (codeElement) {
+                        //    codeElement.classList.add('language-python');
+                        //});
+                        //document.querySelectorAll('#instructions_element pre').forEach(function (codeElement) {
+                        //    codeElement.classList.add('language-python');
+                        //});
+                        if (data.end) {
+                            clearInterval(live_ans)
+                        }
+                    });
+            }, 800);
+        }
+
+        function appendMessage(message, role) {
+            var messageContainer = document.getElementById("message-container");
+            var messageDiv = document.createElement("div");
+            var title = document.createElement("div");
+            var icon = document.createElement("span");
+            var type = document.createElement("type");
+            var p = document.createElement("p");
+            icon.innerHTML = '<i class="ph-fill ph-user"></i>';
+            type.innerHTML = "You";
+            title.appendChild(icon);
+            title.appendChild(type);
+            messageDiv.appendChild(title);
+            messageDiv.appendChild(p);
+            p.textContent = message;
+            messageDiv.classList.add("message");
+            messageContainer.appendChild(messageDiv);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+    </script>
+    <script src="/static/prismjs/prism.js"></script>
+</body>
+
+</html>
