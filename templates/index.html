@@ -73,11 +73,12 @@
     </div>
     <div class="container">
         <div class="message-container" id="message-container">
+
         </div>
         <div class="examples" id="examples">
-            <button onclick="sendMessage(this.innerText)">What is the capital of France?</button>
-            <button onclick="sendMessage(this.innerText)">Give me a random fact.</button>
-            <button onclick="sendMessage(this.innerText)">How to center a DIV?</button>
+            <button onclick="sendMessage(this.innerText)">Create a photo of a forest at sunset.</button>
+            <button onclick="sendMessage(this.innerText)">Create a song about joy and celebration.</button>
+            <button onclick="sendMessage(this.innerText)">How far away is the moon?</button>
         </div>
         <div class="lower_buttons">
             <button id="clear_button"><i class="ph ph-broom"></i>Clear</button>
@@ -88,9 +89,23 @@
     </div>
 
     <script>
+        var message_container = document.getElementById("message-container")
+        var image_prompts = ["create an image", "create a image", "create a photo", "create a painting"]
+        var audio_prompts = ["create an audio", "create a sound", "create a music", "create a song"]
+        var video_prompts = ["create a video", "create a movie", "create a film", "create a clip"]
+        var create_img = false
+        var create_audio = false
+        var create_video = false
+        var fetch_time = 500
+        var image_gen_id = 0
+        var audio_gen_id = 0
+        var video_gen_id = 0
         const welcome = document.getElementById("welcome")
         const examples = document.getElementById("examples")
         const logo = document.getElementById("logo")
+        function scrollToBottom() {
+            message_container.scrollTop = message_container.scrollHeight;
+        }
         const clear = () => {
             console.log("clear")
             window.location.reload()
@@ -123,6 +138,113 @@
             appendMessage(userInput, 'user');
             document.getElementById("user-input").value = "";
             document.getElementById('user-input').disabled = true;
+            for (var i = 0; i < image_prompts.length; i++) {
+                if (userInput.toLowerCase().includes(image_prompts[i])) {
+                    create_img = true
+                }
+            }
+            for (var i = 0; i < audio_prompts.length; i++) {
+                if (userInput.toLowerCase().includes(audio_prompts[i])) {
+                    create_audio = true
+                }
+            }
+            for (var i = 0; i < video_prompts.length; i++) {
+                if (userInput.toLowerCase().includes(video_prompts[i])) {
+                    create_video = true
+                }
+            }
+            if (create_img) {
+                image_gen_id++
+                create_img = false
+                fetch_time = 3000
+                var messageDiv = document.createElement("div");
+                var title = document.createElement("div");
+                var icon = document.createElement("span");
+                var type = document.createElement("type");
+                var p = document.createElement("p");
+                icon.innerHTML = '<i class="ph-fill ph-paint-brush"></i>'
+                type.innerHTML = "Booogle Creator"
+                icon.classList.add("creator")
+                messageDiv.classList.add("message");
+                var messageContainer = document.getElementById("message-container");
+                title.appendChild(icon);
+                title.appendChild(type);
+                messageDiv.appendChild(title);
+                messageDiv.appendChild(p);
+                p.innerHTML = "Sure I'll create that!"
+                var span = document.createElement("span");
+                span.id = "image_loading";
+                span.classList.add("image_loading");
+                span.innerHTML = "<div class='gradient image_gradient'></div>";
+                var messageContainer = document.getElementById("message-container");
+                messageDiv.appendChild(span);
+                messageContainer.appendChild(messageDiv);
+                messageDiv.id = "gen_image_" + image_gen_id
+                
+            }
+            else if (create_audio) {
+                audio_gen_id++
+                create_img = false
+                fetch_time = 5000
+                var messageDiv = document.createElement("div");
+                var title = document.createElement("div");
+                var icon = document.createElement("span");
+                var type = document.createElement("type");
+                var p = document.createElement("p");
+                icon.innerHTML = '<i class="ph-fill ph-headphones"></i>'
+                type.innerHTML = "Booogle DJ"
+                icon.classList.add("dj")
+                messageDiv.classList.add("message");
+                var messageContainer = document.getElementById("message-container");
+                title.appendChild(icon);
+                title.appendChild(type);
+                messageDiv.appendChild(title);
+                messageDiv.appendChild(p);
+                p.innerHTML = "Sure I'll create that!"
+                var span = document.createElement("span");
+                span.id = "image_loading";
+                span.classList.add("image_loading");
+                span.innerHTML = "<div class='gradient dj_gradient'></div>";
+                var messageContainer = document.getElementById("message-container");
+                messageDiv.appendChild(span);
+                messageContainer.appendChild(messageDiv);
+                messageDiv.id = "gen_audio_" + audio_gen_id
+                fetch_time = 5000
+            }
+            else if (create_video) {
+                video_gen_id++
+                create_img = false
+                fetch_time = 5000
+                var messageDiv = document.createElement("div");
+                var title = document.createElement("div");
+                var icon = document.createElement("span");
+                var type = document.createElement("type");
+                var p = document.createElement("p");
+                icon.innerHTML = '<i class="ph-fill ph-film-slate"></i>'
+                type.innerHTML = "Booogle Director"
+                icon.classList.add("director")
+                messageDiv.classList.add("message");
+                var messageContainer = document.getElementById("message-container");
+                title.appendChild(icon);
+                title.appendChild(type);
+                messageDiv.appendChild(title);
+                messageDiv.appendChild(p);
+                p.innerHTML = "Sure I'll create that!"
+                var span = document.createElement("span");
+                span.id = "image_loading";
+                span.classList.add("image_loading");
+                span.innerHTML = "<div class='gradient director_gradient'></div>";
+                var messageContainer = document.getElementById("message-container");
+                messageDiv.appendChild(span);
+                messageContainer.appendChild(messageDiv);
+                messageDiv.id = "gen_video_" + video_gen_id
+                fetch_time = 5000
+            }
+            
+            else {
+                fetch_time = 500
+            }
+            scrollToBottom()
             get_answer()
             fetch('/ask', {
                 method: 'POST',
@@ -137,15 +259,15 @@
             var messageDiv = document.createElement("div");
             var title = document.createElement("div");
             var icon = document.createElement("span");
-            var type = document.createElement("type");
+            var name_type = document.createElement("type");
             var p = document.createElement("p");
             icon.classList.add("modal")
             icon.innerHTML = '<i class="ph-fill ph-sparkle"></i>';
-            type.innerHTML = "Booogle";
+            name_type.innerHTML = "Booogle";
             messageDiv.classList.add("message");
             var messageContainer = document.getElementById("message-container");
             title.appendChild(icon);
-            title.appendChild(type);
+            title.appendChild(name_type);
             messageDiv.appendChild(title);
             messageDiv.appendChild(p);
             var interval = setInterval(() => {
@@ -153,24 +275,51 @@
                     .then(response => response.json())
                     .then(data => {
                         const answerText = data.current_answer;
-                        p.innerHTML = marked.parse(answerText);
-                                if (data.current != "") {
-                                    messageContainer.appendChild(messageDiv);
-                                }
-                                document.querySelectorAll('#message-container code').forEach(function (codeElement) {
-                                    codeElement.classList.add('prism');
-                                });
-                                document.querySelectorAll('#message-container pre').forEach(function (codeElement) {
-                                    codeElement.classList.add('prism');
-                                });
-                                if (data.end) {
-                                    clearInterval(interval)
-                                    document.getElementById('user-input').disabled = false;
-                                    document.getElementById('user-input').focus()
-                                }
-                            })
-                    
-            }, 500);
+                        var type = data.type;
+                        console.log(answerText)
+                        if (type == "image" && answerText != "") {
+                            document.getElementById("image_loading").remove()
+                            p.innerHTML = `<img class="gen_image" src="${answerText[0]}" alt="image"><img class="gen_image" src="${answerText[1]}" alt="image">`
+                            var image_message = document.getElementById("gen_image_" + image_gen_id)
+                            image_message.appendChild(p);
+                            if (data.end) {
+                                clearInterval(interval)
+                                document.getElementById('user-input').disabled = false;
+                                document.getElementById('user-input').focus()
+                            }
+                        }else if (type == "audio" && answerText != "") {
+                            document.getElementById("image_loading").remove()
+                            p.innerHTML = `<audio controls><source src="${answerText}" type="audio/mpeg"></audio>`
+                            var audio_message = document.getElementById("gen_audio_" + audio_gen_id)
+                            audio_message.appendChild(p);
+                            if (data.end) {
+                                clearInterval(interval)
+                                document.getElementById('user-input').disabled = false;
+                                document.getElementById('user-input').focus()
+                            }
+                        }
+                        else {
+                            p.innerHTML = marked.parse(answerText);
+                            if (answerText != "") {
+                                messageContainer.appendChild(messageDiv);
+                            }
+                            document.querySelectorAll('#message-container code').forEach(function (codeElement) {
+                                codeElement.classList.add('prism');
+                            });
+                            document.querySelectorAll('#message-container pre').forEach(function (codeElement) {
+                                codeElement.classList.add('prism');
+                            });
+                        }
+                        if (data.end) {
+                            clearInterval(interval)
+                            document.getElementById('user-input').disabled = false;
+                            document.getElementById('user-input').focus()
+                        }
+                    })
+
+
+            }, fetch_time);
+            scrollToBottom()
         }
 
         function appendMessage(message, role) {

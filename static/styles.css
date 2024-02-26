@@ -91,7 +91,7 @@ h1{
 
 .message-container{
     width:100%;
-    height:auto;
+    height:100%;
     display: flex;
     flex-direction: column;
     gap:32px;
@@ -151,9 +151,7 @@ h1{
 }
 
 .message{
-
     color:#f0f0f0;
-    max-width: 70%;
     word-wrap: break-word;
 }
 
@@ -183,6 +181,22 @@ h1{
     background-color: #42412A !important;
 }
 
+.creator{
+    color: #74F055 !important;
+    background-color: #33422A !important;
+}
+
+.dj{
+    color: #DA55F0 !important;
+    background-color: #3F2A42 !important;
+}
+
+.director{
+    color: #8E3D3D !important;
+    background-color: #422A2A !important;
+
+}
+
 
 .message > div > type{
     font-weight: 600;
@@ -192,6 +206,8 @@ h1{
     margin:0;
     margin-left:40px;
     line-height: 1.5;
+    display: flex;
+    gap: 16px;
 }
 
 @keyframes examples_load {
@@ -252,4 +268,80 @@ h1{
     color: #D9D8D8;
     align-items: center;
     font-size: 14px;
+}
+
+.image_loading{
+    background-color: #27282B;
+    border:1px solid #333539;
+    display: block;
+    width: 272px;
+    border-radius: 16px;
+    padding:16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+    color:#f0f0f0;
+    margin-left: 30px;
+    margin-top: 16px;
+}
+
+.gradient {
+    width: 100%;
+    height: 8px; /* Adjust height as needed */
+    background-color: #333539; /* Gray background color */
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.gradient::before {
+    border-radius: 8px;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: slide-in 3s ease infinite;
+}
+
+.image_gradient::before{
+    background: linear-gradient(90deg, rgba(76,196,66,1) 10%, rgba(56,143,64,1) 40%, rgba(45,156,103,1) 64%, rgba(170,255,224,1) 100%);
+}
+
+.dj_gradient::before{
+    background: linear-gradient(90deg, rgba(186,66,196,1) 10%, rgba(143,56,135,1) 40%, rgba(156,45,125,1) 64%, rgba(255,170,170,1) 100%);
+}
+
+.director_gradient::before{
+    background: linear-gradient(90deg, rgba(196,66,66,1) 10%, rgba(143,61,56,1) 40%, rgba(156,32,0,1) 64%, rgba(255,180,170,1) 100%);
+}
+
+@keyframes slide-in {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+
+  @keyframes slideGradient {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: -100% 0%;
+    }
+  }
+  
+.gen_image{
+    width: 272px;
+    height: 272px;
+    background-color: #27282B;
+    border-radius: 16px;
+    object-fit: cover;
+    margin-top: 8px;
+}
+
+audio{
+    margin-top:8px;
 }
